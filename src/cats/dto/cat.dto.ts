@@ -1,5 +1,5 @@
 import { ApiProperty, PickType } from '@nestjs/swagger';
-import { Cat } from '../cats.schema';
+import { Cat } from '../model/cats.schema';
 
 export class ReadOnlyCatDto extends PickType(Cat, ['email', 'name'] as const) {
   @ApiProperty({

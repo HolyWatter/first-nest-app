@@ -5,7 +5,8 @@ import {
 } from '@nestjs/common';
 import { CatRequestDto } from 'src/cats/dto/cats.request.dto';
 import * as bcrypt from 'bcrypt';
-import { CatsRepository } from './cats.repository';
+import { CatsRepository } from '../repository/cats.repository';
+import { Cat } from '../model/cats.schema';
 
 @Injectable()
 export class CatsService {
@@ -23,5 +24,26 @@ export class CatsService {
     const cat = await this.catsRepository.createCat(email, hashPassword, name);
 
     return cat.readOnlyData;
+  }
+
+  async uploadImg(cat: Cat, files: Array<Express.Multer.File>) {
+    const fileName = `cats/${files[0].filename}`;
+
+    const newCat = await this.catsRepository.findByIdAndUpdateImg(
+      cat.id,
+      fileName,
+    );
+
+    return newCat;
+  }
+
+  async getAllCat() {
+    const allCat = await this.catsRepository.findAll();
+
+    console.log(allCat);
+
+    const readOnlyCat = allCat.map((cat) => cat.readOnlyData);
+
+    return readOnlyCat;
   }
 }
