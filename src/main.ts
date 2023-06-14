@@ -22,7 +22,7 @@ async function bootstrap() {
   );
 
   app.useStaticAssets(path.join(__dirname, './common', 'uploads'), {
-    prefix: 'media',
+    prefix: '/media',
   });
 
   const config = new DocumentBuilder()
