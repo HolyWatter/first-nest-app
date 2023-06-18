@@ -45,7 +45,7 @@ export class Comments extends Document {
   likeCount: number;
 
   @ApiProperty({
-    description: '작성 게시글 id',
+    description: '작성 유저 id',
     required: true,
   })
   @Prop({
